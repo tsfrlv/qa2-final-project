@@ -32,9 +32,3 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
-
-cucumber {
-    featureDirs = ['src/test/resources/Features']
-    glueDirs = ['src/test/steps']
-    formats = ['pretty','html:build/CucumberReport/','junit:build/cucumber.xml']
-}
