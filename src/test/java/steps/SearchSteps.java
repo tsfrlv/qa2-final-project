@@ -1,25 +1,27 @@
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import pages.SearchResultsPage;
 
 public class SearchSteps {
 
-    @And("^enters product name into search bar$")
-    public void entersProductNameIntoSearchBar() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @And("enters (.*) into search bar")
+    public void entersProductNameIntoSearchBar(String productName) throws Throwable {
+        SearchResultsPage.searchForProduct(productName);
     }
 
-    @And("^selects a category$")
-    public void selectsABrand() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @And("^selects (.*)$")
+    public void selectsCategory(String category) throws Throwable {
+        SearchResultsPage.selectCategory(category);
     }
 
     @And("^filters products by start rating$")
     public void filtersProductsByStartRating() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        SearchResultsPage.sortByStarRating();
+    }
+
+    @And("^chooses product from search results$")
+    public void choosesProductFromSearchResults() throws Throwable {
+        SearchResultsPage.selectProductNameFromSearch();
     }
 }

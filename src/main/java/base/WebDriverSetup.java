@@ -2,24 +2,32 @@ package base;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class WebDriverSetup {
 
     private static final ThreadLocal<WebDriver> drivers = ThreadLocal.withInitial(() -> null);
 
-    //only CHROME, add setup for different drivers
-    public static WebDriver setupDriver() {
-        RemoteWebDriver driver;
+    public static ChromeDriver setupDriver() {
+        ChromeDriver driver;
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("profile.default_content_setting_values.notifications", 0);
+
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("prefs", prefs);
+
         System.setProperty(
                 "webdriver.chrome.driver",
                 "chromedriver");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         return driver;
     }
 
@@ -31,7 +39,7 @@ public class WebDriverSetup {
         drivers.set(driver);
     }
 
-    private static JavascriptExecutor getJsExecutor() {
+    public static JavascriptExecutor getJsExecutor() {
         return (JavascriptExecutor) getDriver();
     }
 
@@ -43,6 +51,13 @@ public class WebDriverSetup {
                 return true;
             }
         };
+    }
+
+    public static void scrollTo(WebElement element) {
+        String scrollElementIntoMiddle = "var viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);"
+                + "var elementTop = arguments[0].getBoundingClientRect().top;"
+                + "window.scrollBy(0, elementTop-(viewPortHeight/2));";
+        getJsExecutor().executeScript(scrollElementIntoMiddle, element);
     }
 
     public static WebElement getElement(By locator) {
@@ -63,6 +78,15 @@ public class WebDriverSetup {
         }
     }
 
+    public static List<WebElement> getElements(By locator) {
+        waitForPageToLoad();
+        try {
+            return getDriver().findElements(locator);
+        } catch (WebDriverException e) {
+            waitForPageToLoad();
+            return getDriver().findElements(locator);
+        }
+    }
 
     public static Properties getProperties() throws IOException {
         Properties prop = new Properties();

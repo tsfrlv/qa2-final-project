@@ -10,11 +10,7 @@ public class TestProperties {
     public static final String URIEKSTE_ADDRESS = "Rīga, Uriekstes 8b";
     public static final String MUKUSALA_ADDRESS = "Rīga, Mūkusalas 41";
 
-    // Consent
-    public static final String TO_EMAIL = "Uz e-pastu";
-    public static final String REFUSE = "Nevēlos saņemt";
-
     // Payment method
-    public static final String CASH = "Skaidra nauda";
-    public static final String CARD = "Norēķinu karte";
+    public static final String TRANSFER_INDIVIDUAL_PERSON = "Pārskaitījums (Fiziska persona)";
+    public static final String ONLINE_CARD_INDIVIDUAL_PERSON = "Bankas karte (Online) (Fiziska persona)";
 }
