@@ -29,14 +29,16 @@ public class SearchResultsPage {
     }
 
     public static void sortByStarRating() {
-        WebDriverSetup.getElement(sortOrderSelector).click();
+        WebElement sortOrderDropdown = WebDriverSetup.getElement(sortOrderSelector);
+        WebDriverSetup.scrollTo(sortOrderDropdown);
+        sortOrderDropdown.click();
         WebDriverSetup.getElement(sortOrderDropDown).findElement(sortByStarRatingSelection).click();
     }
 
     public static void selectProductNameFromSearch() throws InterruptedException {
         WebElement parent = checkFoundItemsAndSelectRandomProduct().findElement(productTitleParent);
+        WebDriverSetup.scrollTo(parent);
         WebElement product = WebDriverSetup.getElement(parent, productTitle);
-
         WebDriverSetup.scrollTo(product);
         product.click();
 

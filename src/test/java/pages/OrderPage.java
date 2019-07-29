@@ -26,19 +26,23 @@ public class OrderPage {
     private static By deliveryAddressLocator = By.xpath("//h3[contains(text(),'Piegādes adrese')]/following-sibling::p[1]");
     private static By selectedPaymentMethodLocator = By.xpath("//*[@id='main']/div/div/form/div[3]/h2");
 
-    public static WebElement finalPrice () {
+    public static WebElement finalPrice() {
         return WebDriverSetup.getElement(priceLocator);
     }
-    public static WebElement finalProductName () {
+
+    public static WebElement finalProductName() {
         return WebDriverSetup.getElement(productNameLocator);
     }
-    public static WebElement finalUserData () {
+
+    public static WebElement finalUserData() {
         return WebDriverSetup.getElement(userDataLocator);
     }
-    public static WebElement finalDeliveryAddress () {
+
+    public static WebElement finalDeliveryAddress() {
         return WebDriverSetup.getElement(deliveryAddressLocator);
     }
-    public static WebElement finalSelectedPaymentMethod () {
+
+    public static WebElement finalSelectedPaymentMethod() {
         return WebDriverSetup.getElement(selectedPaymentMethodLocator);
     }
 
@@ -75,7 +79,7 @@ public class OrderPage {
 
     public static void selectPaymentMethod(String desiredPaymentMethod, String contactType) throws InterruptedException {
         WebElement selectedPaymentMethod = WebDriverSetup.getElement(paymentMethods).findElement(By.xpath("//a[@payment_type='" + desiredPaymentMethod + "']"));
-
+        WebDriverSetup.scrollTo(selectedPaymentMethod);
         selectedPaymentMethod.click();
 
         //no time, this will be here
@@ -88,7 +92,6 @@ public class OrderPage {
                 paymentType = orderContactOnlineCardSelect;
                 break;
         }
-
 
 
         WebElement inputParent = WebDriverSetup.getElement(paymentType).findElement(By.xpath("./.."));

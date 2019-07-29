@@ -1,5 +1,6 @@
 package steps;
 
+import base.WebDriverSetup;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import model.Customer;
@@ -81,6 +82,7 @@ public class OrderSteps {
         Assert.assertEquals(OrderPage.finalUserData().getText(), this.customer.getUserData());
         Assert.assertTrue((OrderPage.finalSelectedPaymentMethod().getText()).contains((this.customer.getPaymentMethod()).toUpperCase()));
         Assert.assertEquals(OrderPage.finalDeliveryAddress().getText(), this.customer.getDeliveryAddress());
+        WebDriverSetup.getDriver().manage().deleteAllCookies();
     }
 
     @And("^agrees with terms and proceeds to payment method$")
