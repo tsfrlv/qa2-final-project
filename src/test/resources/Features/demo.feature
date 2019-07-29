@@ -20,5 +20,6 @@ Feature: Make an order in 1a web-shop
     And checks <payment method>
     Then completes the order
     Examples:
-      | product name | category | delivery method                                  | newsletter settings | payment method                  |
-      | Lenovo       | Monitori | Pasūtījumu saņemšu 1a.lv klientu centrā URIEKSTE | Uz e-pastu          | Pārskaitījums (Fiziska persona) |
+      | product name | category          | delivery method                                  | newsletter settings | payment method                         |
+      | Lenovo       | Monitori          | Pasūtījumu saņemšu 1a.lv klientu centrā URIEKSTE | Uz e-pastu          | Pārskaitījums (Fiziska persona)        |
+      | HP           | Portatīvie datori | Pasūtījumu saņemšu 1a.lv klientu centrā MŪKUSALA | Nevēlos saņemt      | Bankas karte (Online) (Fiziska persona) |

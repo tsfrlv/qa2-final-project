@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,16 @@ import java.util.Properties;
 public class WebDriverSetup {
 
     private static final ThreadLocal<WebDriver> drivers = ThreadLocal.withInitial(() -> null);
+
+    private static long waitUntil;
+
+    static {
+        try {
+            waitUntil = Long.parseLong(getProperties().getProperty("wait.until"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static ChromeDriver setupDriver() {
         ChromeDriver driver;
@@ -44,13 +55,8 @@ public class WebDriverSetup {
     }
 
     public static void waitForPageToLoad() {
-        ExpectedCondition<Boolean> jQueryLoad = driver -> {
-            try {
-                return ((Long) (getJsExecutor()).executeScript("return jQuery.active") == 0);
-            } catch (Exception e) {
-                return true;
-            }
-        };
+        new WebDriverWait(getDriver(), waitUntil).until((ExpectedCondition<Boolean>) wd ->
+                ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
 
     public static void scrollTo(WebElement element) {

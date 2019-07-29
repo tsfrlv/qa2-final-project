@@ -11,8 +11,6 @@ public class HomePage {
 
     public static void openHomePage() throws IOException, InterruptedException {
         WebDriverSetup.getDriver().navigate().to(WebDriverSetup.getProperties().getProperty("app.url"));
-        //TODO remove if find out why the property in ChromeDriver does not work
-        Thread.sleep(1000);
     }
 
     public static void navigateToCart() {
